@@ -1,46 +1,56 @@
 package basis;
 
-public abstract class Animal {
+public class Animal {
+
+    static final int SWIM_FAIL = 0;
+    public static final int SWIM_OK = 1;
+    public static final int SWIM_NONE = -1;
 
     private static int numberOfAnimals = 0;
 
 
-    protected String breed;
+    protected String type;
     protected String name;
     protected String color;
-    protected String woolLength;
-    protected int maxWeight;
-    protected int maxAge;
+    protected float maxRun;
+    protected float maxSwim;
 
-    public Animal(String breed,String name, String color, String woolLength, int maxWeight, int maxAge){
-        this.breed=breed;
+
+
+    public Animal(String type, String name, String color,float maxRun,float maxSwim){
+        this.type=type;
         this.name=name;
         this.color=color;
-        this.woolLength=woolLength;
-        this.maxWeight=maxWeight;
-        this.maxAge=maxAge;
+        this.maxRun=maxRun;
+        this.maxSwim=maxSwim;
+
 
         numberOfAnimals++;
     }
 
-    public void animalInfo(){
-        System.out.println("Животное породы " + breed + ". Имя - " + name +
-                ". Окрас - " + color);
+    public String animalInfo(){
+       return type +" "+ name+" "+color;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getType(){
+        return this.type;
+    }
+    public float getMaxRun() {
+        return this.maxRun;
     }
 
-    public abstract void uniqAction();
-
-
-
-    public abstract int getRunDistance();
-    public void run(){
-        System.out.println(name + " может пробежать " + getRunDistance() + " метров");
+    public float getMaxSwim() {
+        return this.maxSwim;
     }
 
-    public abstract int getSwimDistance();
+    public boolean run(float distance) {
+        return (distance <= maxRun);
+    }
 
-    public void swim(){
-        System.out.println(name + " может проплыть " + getSwimDistance() + " метров");
+    public int swim(float distance) {
+        return (distance <= maxSwim) ? SWIM_OK : SWIM_FAIL;
     }
 
     public static int countAnimal() {
